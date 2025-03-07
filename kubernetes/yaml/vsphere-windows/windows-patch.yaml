@@ -1,0 +1,19 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: kibishii-deployment
+spec:
+  template:
+    spec:
+      tolerations:
+      - effect: NoSchedule
+        key: os
+        operator: Equal
+        value: windows
+      nodeSelector:
+        kubernetes.io/os: windows
+      containers:
+      - name: kibishii
+        image: gcr.io/velero-gcp/kibishii-worker:windows_support_for_worker-3a99ac1-26.Mar.2025.07.33.34
+        command: ["cmd.exe", "/c"]
+        args: ["java -cp \"C:=\\Users\\ContainerUser\\*\" -jar C:\\Users\\ContainerUser\\kibishii.jar %POD_NAME% http://etcd-client:2379 C:\\Windows\\Temp"]
