@@ -1,0 +1,11 @@
+FROM eclipse-temurin:8-jre-nanoserver-ltsc2022
+
+RUN New-Item -Path "C:\opt\share\kibishii" -ItemType "directory"
+
+COPY opt/share/kibishii C:\opt\share\kibishii
+
+RUN New-Item -Path "C:\data" -ItemType "directory"
+
+CMD java -cp "C:\opt\share\kibishii\*" -jar /opt/share/kibishii/kibishii.jar $HOSTNAME http://etcd-client:2379 C:\data
+
+USER ContainerUser
