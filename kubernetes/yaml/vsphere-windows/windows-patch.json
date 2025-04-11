@@ -1,0 +1,41 @@
+[
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/volumeMounts/0/mountPath",
+    "value": "C:\\Windows\\Temp"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/command",
+    "value": [
+      "cmd.exe",
+      "/c"
+    ]
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/args",
+    "value": [
+      "java -cp \"C:=\\Users\\ContainerUser\\*\" -jar C:\\Users\\ContainerUser\\kibishii.jar %POD_NAME% http://etcd-client:2379 C:\\Windows\\Temp"
+    ]
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/nodeSelector",
+    "value": {
+      "kubernetes.io/os": "windows"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/tolerations",
+    "value": [
+      {
+        "effect": "NoSchedule",
+        "key": "os",
+        "operator": "Equal",
+        "value": "windows"
+      }
+    ]
+  }
+]
